@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_airplane/shared/theme.dart';
+import 'package:flutter_airplane/ui/pages/sign_up.dart';
+import 'package:flutter_airplane/ui/widgets/custom_button.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class GetStarted extends StatefulWidget {
+  const GetStarted({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _GetStartedState createState() => _GetStartedState();
 }
 
-class _HomeState extends State<Home> {
+class _GetStartedState extends State<GetStarted> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,27 +59,16 @@ class _HomeState extends State<Home> {
                   const SizedBox(
                     height: 50,
                   ),
-                  InkWell(
+                  CustomButton(
+                    label: 'Get Started',
+                    width: 220,
                     onTap: () {
-                      debugPrint("clicked");
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUp()),
+                          (route) => false);
                     },
-                    child: Container(
-                      width: 220,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(17),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Get Started",
-                          style: whiteTextStyle.copyWith(
-                            fontSize: 18,
-                            fontWeight: medium,
-                          ),
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),

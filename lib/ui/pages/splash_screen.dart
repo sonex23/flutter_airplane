@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/pages/home.dart';
+import 'package:flutter_airplane/ui/pages/get_started.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => const GetStarted()),
           (route) => false);
     });
   }
