@@ -88,6 +88,7 @@ class _SignUpState extends State<SignUp> {
                     style: greyTextStyle.copyWith(
                       fontWeight: light,
                       fontSize: 16,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 )
