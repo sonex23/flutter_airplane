@@ -2,7 +2,7 @@
     package="com.example.flutter_airplane">
    <application
         android:label="flutter_airplane"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
