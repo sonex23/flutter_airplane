@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/pages/home.dart';
-import 'package:flutter_airplane/ui/widgets/credit_card.dart';
-import 'package:flutter_airplane/ui/widgets/custom_button.dart';
+import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/home.dart';
+import 'package:airplane/ui/widgets/credit_card.dart';
+import 'package:airplane/ui/widgets/custom_button.dart';
 
 class Bonus extends StatefulWidget {
   const Bonus({Key? key}) : super(key: key);

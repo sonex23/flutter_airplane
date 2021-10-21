@@ -1,4 +1,4 @@
-name: flutter_airplane
+name: airplane
 description: Aplikasi order tiket pesawat
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev

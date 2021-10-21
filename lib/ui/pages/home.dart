@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/widgets/card_destiny.dart';
-import 'package:flutter_airplane/ui/widgets/card_destiny_tile.dart';
-import 'package:flutter_airplane/ui/widgets/custom_title.dart';
+import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/widgets/card_destiny.dart';
+import 'package:airplane/ui/widgets/card_destiny_tile.dart';
+import 'package:airplane/ui/widgets/custom_title.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             Positioned.fill(
-              bottom: 30,
+              bottom: 10,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -184,14 +184,6 @@ class _HomeState extends State<Home> {
                           const Spacer(),
                           Image.asset("assets/icon_book.png", width: 24),
                           const Spacer(),
-                          // Container(
-                          //   width: 30,
-                          //   height: 2,
-                          //   decoration: BoxDecoration(
-                          //     color: kPrimaryColor,
-                          //     borderRadius: BorderRadius.circular(18),
-                          //   ),
-                          // ),
                         ],
                       ),
                       Column(
@@ -199,14 +191,6 @@ class _HomeState extends State<Home> {
                           const Spacer(),
                           Image.asset("assets/icon_credit.png", width: 24),
                           const Spacer(),
-                          // Container(
-                          //   width: 30,
-                          //   height: 2,
-                          //   decoration: BoxDecoration(
-                          //     color: kPrimaryColor,
-                          //     borderRadius: BorderRadius.circular(18),
-                          //   ),
-                          // ),
                         ],
                       ),
                       Column(
@@ -214,14 +198,6 @@ class _HomeState extends State<Home> {
                           const Spacer(),
                           Image.asset("assets/icon_setting.png", width: 24),
                           const Spacer(),
-                          // Container(
-                          //   width: 30,
-                          //   height: 2,
-                          //   decoration: BoxDecoration(
-                          //     color: kPrimaryColor,
-                          //     borderRadius: BorderRadius.circular(18),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/widgets/custom_title.dart';
-import 'package:flutter_airplane/ui/widgets/form_sign_up.dart';
+import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/widgets/custom_title.dart';
+import 'package:airplane/ui/widgets/form_sign_up.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

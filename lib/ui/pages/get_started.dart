@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/pages/sign_up.dart';
-import 'package:flutter_airplane/ui/widgets/custom_button.dart';
+import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/sign_up.dart';
+import 'package:airplane/ui/widgets/custom_button.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);

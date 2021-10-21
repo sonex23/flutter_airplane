@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/ui/pages/bonus.dart';
-import 'package:flutter_airplane/ui/widgets/custom_button.dart';
-import 'package:flutter_airplane/ui/widgets/custom_textformfield.dart';
+import 'package:airplane/ui/pages/bonus.dart';
+import 'package:airplane/ui/widgets/custom_button.dart';
+import 'package:airplane/ui/widgets/custom_textformfield.dart';
 
 class FormSignUp extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -50,7 +50,7 @@ class FormSignUp extends StatelessWidget {
               height: 30,
             ),
             CustomButton(
-              label: "GetStarted",
+              label: "Get Started",
               onTap: () {
                 if (formKey.currentState!.validate()) {
                   Navigator.push(context,

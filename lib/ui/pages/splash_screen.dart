@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:flutter_airplane/shared/theme.dart';
-import 'package:flutter_airplane/ui/pages/get_started.dart';
+import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/get_started.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
+import 'package:airplane/shared/theme.dart';
 import 'package:intl/intl.dart';
 
 class CreditCard extends StatelessWidget {
@@ -104,8 +104,10 @@ class CreditCard extends StatelessWidget {
                           fontSize: 14, fontWeight: light),
                     ),
                     Text(
-                      NumberFormat.currency(locale: "in", symbol: "IDR ")
-                          .format(credit),
+                      NumberFormat.currency(
+                        symbol: "IDR ",
+                        decimalDigits: 0,
+                      ).format(credit),
                       style: whiteTextStyle.copyWith(
                         fontSize: 26,
                         fontWeight: medium,

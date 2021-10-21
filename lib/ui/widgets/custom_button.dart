@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_airplane/shared/theme.dart';
+import 'package:airplane/shared/theme.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
