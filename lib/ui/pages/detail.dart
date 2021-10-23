@@ -1,4 +1,5 @@
 import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/choose_seat.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -355,7 +356,14 @@ class _DetailState extends State<Detail> {
                           Expanded(
                             child: CustomButton(
                               label: "Book Now",
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ChooseSeat(),
+                                  ),
+                                );
+                              },
                               width: double.infinity,
                             ),
                           ),
