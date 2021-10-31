@@ -1,3 +1,4 @@
+import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/choose_seat.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
@@ -360,7 +361,16 @@ class _DetailState extends State<Detail> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ChooseSeat(),
+                                    builder: (context) => const ChooseSeat(
+                                      destination: DestinationModel(
+                                        id: '0',
+                                        name: "Lake Ciliwung",
+                                        city: "Tanggerang",
+                                        imageUrl: "assets/image_destiny_2.png",
+                                        rating: 4.8,
+                                        price: 2500000,
+                                      ),
+                                    ),
                                   ),
                                 );
                               },

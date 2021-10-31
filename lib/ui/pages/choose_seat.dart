@@ -1,52 +1,21 @@
+import 'package:airplane/cubit/seat_cubit.dart';
+import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/shared/theme.dart';
+import 'package:airplane/ui/pages/checkout.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:airplane/ui/widgets/custom_title.dart';
 import 'package:airplane/ui/widgets/seat_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChooseSeat extends StatefulWidget {
-  const ChooseSeat({Key? key}) : super(key: key);
+class ChooseSeat extends StatelessWidget {
+  final DestinationModel destination;
 
-  @override
-  _ChooseSeatState createState() => _ChooseSeatState();
-}
-
-class _ChooseSeatState extends State<ChooseSeat> {
-  double price = 2500000;
-  double total = 0;
-  Map<String, Map> seatStatus = <String, Map>{
-    "a": <String, String>{
-      "1": "available",
-      "2": "available",
-      "3": "available",
-      "4": "unavailable",
-      "5": "available",
-    },
-    "b": <String, String>{
-      "1": "unavailable",
-      "2": "unavailable",
-      "3": "available",
-      "4": "unavailable",
-      "5": "available",
-    },
-    "c": <String, String>{
-      "1": "available",
-      "2": "available",
-      "3": "available",
-      "4": "unavailable",
-      "5": "unavailable",
-    },
-    "d": <String, String>{
-      "1": "unavailable",
-      "2": "unavailable",
-      "3": "unavailable",
-      "4": "available",
-      "5": "available",
-    },
-  };
-
-  List<String> choosenSeat = [];
+  const ChooseSeat({
+    Key? key,
+    required this.destination,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -143,393 +112,305 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: BlocBuilder<SeatCubit, List<String>>(
+                    builder: (context, state) {
+                      return Column(
                         children: [
-                          SizedBox(
-                            width: 48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "A",
-                                  style: greyTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: regular,
+                          // NOTE: SEAT INDICATORS
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: Text(
+                                    'A',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 16,
+                              ),
+                              SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: Text(
+                                    'B',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: seatStatus["a"]?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return SeatItem(
-                                      onTap: () {
-                                        if (seatStatus["a"]
-                                                ?[(index + 1).toString()] ==
-                                            "available") {
-                                          setState(() {
-                                            choosenSeat.add('A${index + 1}');
-                                            seatStatus["a"]
-                                                    ?[(index + 1).toString()] =
-                                                "selected";
-                                            total += price;
-                                          });
-                                        } else if (seatStatus["a"]
-                                                ?[(index + 1).toString()] ==
-                                            "selected") {
-                                          setState(() {
-                                            choosenSeat.remove('A${index + 1}');
-                                            seatStatus["a"]
-                                                    ?[(index + 1).toString()] =
-                                                "available";
-                                            total -= price;
-                                          });
-                                        }
-                                      },
-                                      blok: "a",
-                                      number: (index + 1).toString(),
-                                      status: seatStatus["a"]
-                                          ?[(index + 1).toString()],
-                                    );
-                                  },
+                              ),
+                              SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: Text(
+                                    ' ',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: Text(
+                                    'C',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 48,
+                                height: 48,
+                                child: Center(
+                                  child: Text(
+                                    'D',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          // NOTE: SEAT 1
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const SeatItem(
+                                  id: 'A1',
+                                  isAvailable: false,
+                                ),
+                                const SeatItem(
+                                  id: 'B1',
+                                  isAvailable: false,
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: Text(
+                                      '1',
+                                      style: greyTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SeatItem(
+                                  id: 'C1',
+                                ),
+                                const SeatItem(
+                                  id: 'D1',
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: 48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+
+                          // NOTE: SEAT 2
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text(
-                                  "B",
-                                  style: greyTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: regular,
+                                const SeatItem(
+                                  id: 'A2',
+                                ),
+                                const SeatItem(
+                                  id: 'B2',
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: Text(
+                                      '2',
+                                      style: greyTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 16,
+                                const SeatItem(
+                                  id: 'C2',
                                 ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: seatStatus["b"]?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return SeatItem(
-                                      onTap: () {
-                                        if (seatStatus["b"]
-                                                ?[(index + 1).toString()] ==
-                                            "available") {
-                                          setState(() {
-                                            choosenSeat.add('B${index + 1}');
-                                            seatStatus["b"]
-                                                    ?[(index + 1).toString()] =
-                                                "selected";
-                                            total += price;
-                                          });
-                                        } else if (seatStatus["b"]
-                                                ?[(index + 1).toString()] ==
-                                            "selected") {
-                                          setState(() {
-                                            choosenSeat.remove('B${index + 1}');
-                                            seatStatus["b"]
-                                                    ?[(index + 1).toString()] =
-                                                "available";
-                                            total -= price;
-                                          });
-                                        }
-                                      },
-                                      blok: "b",
-                                      number: (index + 1).toString(),
-                                      status: seatStatus["b"]
-                                          ?[(index + 1).toString()],
-                                    );
-                                  },
+                                const SeatItem(
+                                  id: 'D2',
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: 48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                          // NOTE: SEAT 3
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const SeatItem(
+                                  id: 'A3',
+                                ),
+                                const SeatItem(
+                                  id: 'B3',
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: Text(
+                                      '3',
+                                      style: greyTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SeatItem(
+                                  id: 'C3',
+                                ),
+                                const SeatItem(
+                                  id: 'D3',
+                                ),
+                              ],
+                            ),
+                          ),
+                          // NOTE: SEAT 4
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const SeatItem(
+                                  id: 'A4',
+                                ),
+                                const SeatItem(
+                                  id: 'B4',
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: Text(
+                                      '4',
+                                      style: greyTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SeatItem(
+                                  id: 'C4',
+                                ),
+                                const SeatItem(
+                                  id: 'D4',
+                                ),
+                              ],
+                            ),
+                          ),
+                          // NOTE: SEAT 5
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                const SeatItem(
+                                  id: 'A5',
+                                ),
+                                const SeatItem(
+                                  id: 'B5',
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: Text(
+                                      '5',
+                                      style: greyTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SeatItem(
+                                  id: 'C5',
+                                ),
+                                const SeatItem(
+                                  id: 'D5',
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // NOTE: YOUR SEAT
+                          Container(
+                            margin: const EdgeInsets.only(top: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "",
+                                  'Your seat',
                                   style: greyTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: regular,
+                                    fontWeight: light,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: SizedBox(
-                                    height: 48,
-                                    child: Center(
-                                      child: Text(
-                                        "1",
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: regular,
-                                        ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 30),
+                                    child: Text(
+                                      state.join(', '),
+                                      style: blackTextStyle.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: medium,
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: SizedBox(
-                                    height: 48,
-                                    child: Center(
-                                      child: Text(
-                                        "2",
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: regular,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: SizedBox(
-                                    height: 48,
-                                    child: Center(
-                                      child: Text(
-                                        "3",
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: regular,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: SizedBox(
-                                    height: 48,
-                                    child: Center(
-                                      child: Text(
-                                        "4",
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: regular,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: SizedBox(
-                                    height: 48,
-                                    child: Center(
-                                      child: Text(
-                                        "5",
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: regular,
-                                        ),
-                                      ),
+                                      textAlign: TextAlign.right,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: 48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+
+                          // NOTE: TOTAL
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "C",
+                                  'Total',
                                   style: greyTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: regular,
+                                    fontWeight: light,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: seatStatus["c"]?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return SeatItem(
-                                      onTap: () {
-                                        if (seatStatus["c"]
-                                                ?[(index + 1).toString()] ==
-                                            "available") {
-                                          setState(() {
-                                            choosenSeat.add('C${index + 1}');
-                                            seatStatus["c"]
-                                                    ?[(index + 1).toString()] =
-                                                "selected";
-                                            total += price;
-                                          });
-                                        } else if (seatStatus["c"]
-                                                ?[(index + 1).toString()] ==
-                                            "selected") {
-                                          setState(() {
-                                            choosenSeat.remove('C${index + 1}');
-                                            seatStatus["c"]
-                                                    ?[(index + 1).toString()] =
-                                                "available";
-                                            total -= price;
-                                          });
-                                        }
-                                      },
-                                      blok: "c",
-                                      number: (index + 1).toString(),
-                                      status: seatStatus["c"]
-                                          ?[(index + 1).toString()],
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
                                 Text(
-                                  "D",
-                                  style: greyTextStyle.copyWith(
+                                  NumberFormat.currency(
+                                    locale: 'id',
+                                    symbol: 'IDR ',
+                                    decimalDigits: 0,
+                                  ).format(state.length * destination.price),
+                                  style: purpleTextStyle.copyWith(
                                     fontSize: 16,
-                                    fontWeight: regular,
+                                    fontWeight: semiBold,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: seatStatus["d"]?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return SeatItem(
-                                      onTap: () {
-                                        if (seatStatus["d"]
-                                                ?[(index + 1).toString()] ==
-                                            "available") {
-                                          setState(() {
-                                            choosenSeat.add('D${index + 1}');
-                                            seatStatus["d"]
-                                                    ?[(index + 1).toString()] =
-                                                "selected";
-                                            total += price;
-                                          });
-                                        } else if (seatStatus["d"]
-                                                ?[(index + 1).toString()] ==
-                                            "selected") {
-                                          setState(() {
-                                            choosenSeat.remove('D${index + 1}');
-                                            seatStatus["d"]
-                                                    ?[(index + 1).toString()] =
-                                                "avilable";
-                                            total -= price;
-                                          });
-                                        }
-                                      },
-                                      blok: "d",
-                                      number: (index + 1).toString(),
-                                      status: seatStatus["d"]
-                                          ?[(index + 1).toString()],
-                                    );
-                                  },
                                 ),
                               ],
                             ),
                           ),
                         ],
-                      ),
-                      const SizedBox(
-                        height: 14,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Your seat",
-                            style: greyTextStyle.copyWith(
-                              fontSize: 14,
-                              fontWeight: light,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 50,
-                              ),
-                              child: Text(
-                                choosenSeat.isNotEmpty
-                                    ? choosenSeat.join(",")
-                                    : "No seat",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: medium,
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Total",
-                            style: greyTextStyle.copyWith(
-                              fontSize: 14,
-                              fontWeight: light,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              NumberFormat.currency(
-                                symbol: "IDR ",
-                                decimalDigits: 0,
-                                locale: "in",
-                              ).format(total),
-                              style: purpleTextStyle.copyWith(
-                                fontSize: 16,
-                                fontWeight: semiBold,
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(
@@ -537,7 +418,14 @@ class _ChooseSeatState extends State<ChooseSeat> {
                 ),
                 CustomButton(
                   label: "Continue to Checkout",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Checkout(),
+                      ),
+                    );
+                  },
                   width: double.infinity,
                 ),
               ],
