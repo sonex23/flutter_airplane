@@ -10,6 +10,8 @@ Color kGreenColor = const Color(0xFF0EC3AE);
 Color kRedColor = const Color(0xffEB70A5);
 Color kInactiveColor = const Color(0xffDBD7EC);
 Color kShadowBonusCard = const Color(0xff3F32B2);
+Color kUnavailable = const Color(0xffEBECF1);
+Color kAvailable = const Color(0xffE0D9FF);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(
   color: kBlackColor,
