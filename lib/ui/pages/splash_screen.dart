@@ -1,3 +1,5 @@
+import 'package:airplane/ui/pages/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/get_started.dart';
@@ -13,12 +15,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const GetStarted()),
-          (route) => false);
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainPage(),
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const GetStarted(),
+            ),
+            (route) => false,
+          );
+        }
+      },
+    );
   }
 
   @override

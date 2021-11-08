@@ -34,7 +34,7 @@ class _SignUpState extends State<SignUp> {
                   formKey: _formSignUpKey,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Center(
                   child: Text(
@@ -45,7 +45,7 @@ class _SignUpState extends State<SignUp> {
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

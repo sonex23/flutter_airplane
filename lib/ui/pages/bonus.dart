@@ -1,8 +1,10 @@
+import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/ui/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
-import 'package:airplane/ui/pages/home.dart';
 import 'package:airplane/ui/widgets/credit_card.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Bonus extends StatefulWidget {
   const Bonus({Key? key}) : super(key: key);
@@ -20,9 +22,13 @@ class _BonusState extends State<Bonus> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CreditCard(
-            credit: 280000000,
-            name: 'Sona Ermando',
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return CreditCard(
+                credit: state is AuthSuccess ? state.user.balance : 0,
+                name: state is AuthSuccess ? state.user.name : "",
+              );
+            },
           ),
           const SizedBox(
             height: 91,
@@ -55,7 +61,7 @@ class _BonusState extends State<Bonus> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Home(),
+                    builder: (context) => const MainPage(),
                   ),
                   (route) => false);
             },

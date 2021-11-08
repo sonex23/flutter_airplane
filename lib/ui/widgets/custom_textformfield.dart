@@ -5,11 +5,13 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final bool? isPassword;
+  final TextEditingController controller;
   const CustomTextFormField({
     Key? key,
     required this.labelText,
     required this.hintText,
     this.isPassword,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
           height: 6,
         ),
         TextFormField(
+          controller: controller,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: isPassword == true ? true : false,
           style: blackTextStyle.copyWith(fontSize: 16, fontWeight: regular),

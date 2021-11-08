@@ -5,12 +5,14 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final double width;
   final String label;
-  const CustomButton({
-    Key? key,
-    required this.label,
-    required this.onTap,
-    required this.width,
-  }) : super(key: key);
+  final bool? isLoading;
+  const CustomButton(
+      {Key? key,
+      required this.label,
+      required this.onTap,
+      required this.width,
+      this.isLoading})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,17 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
         child: Center(
-          child: Text(
-            label,
-            style: whiteTextStyle.copyWith(
-              fontSize: 18,
-              fontWeight: medium,
-            ),
-          ),
+          child: isLoading == true
+              ? CircularProgressIndicator(
+                  color: kWhiteColor,
+                )
+              : Text(
+                  label,
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: medium,
+                  ),
+                ),
         ),
       ),
     );
