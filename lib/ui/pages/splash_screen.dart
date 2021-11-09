@@ -1,8 +1,11 @@
+import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/destination_cubit.dart';
 import 'package:airplane/ui/pages/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/get_started.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
       () {
         User? user = FirebaseAuth.instance.currentUser;
         if (user != null) {
+          context.read<AuthCubit>().getCurrentUser(user.uid);
+          debugPrint(user.email);
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -36,6 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             (route) => false,
           );
         }
+        context.read<DestinationCubit>().getAllDestinations();
       },
     );
   }

@@ -4,12 +4,12 @@ import 'package:airplane/shared/theme.dart';
 
 class CardDestiny extends StatelessWidget {
   final double rating;
-  final String imgSrc, name, address;
+  final String imageUrl, name, city;
   const CardDestiny({
     Key? key,
     required this.name,
-    required this.address,
-    required this.imgSrc,
+    required this.city,
+    required this.imageUrl,
     required this.rating,
   }) : super(key: key);
 
@@ -40,7 +40,7 @@ class CardDestiny extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     image: DecorationImage(
-                      image: AssetImage(imgSrc),
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -102,7 +102,7 @@ class CardDestiny extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    address,
+                    city,
                     style: greyTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: light,

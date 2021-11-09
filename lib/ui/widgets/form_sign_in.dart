@@ -1,31 +1,29 @@
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/ui/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/ui/pages/bonus.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:airplane/ui/widgets/custom_textformfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FormSignUp extends StatefulWidget {
+class FormSignIn extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  const FormSignUp({Key? key, required this.formKey}) : super(key: key);
+  const FormSignIn({Key? key, required this.formKey}) : super(key: key);
 
   @override
-  State<FormSignUp> createState() => _FormSignUpState();
+  State<FormSignIn> createState() => _FormSignInState();
 }
 
-class _FormSignUpState extends State<FormSignUp> {
-  final TextEditingController _nameController = TextEditingController();
+class _FormSignInState extends State<FormSignIn> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _hobbyController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _hobbyController.dispose();
   }
 
   @override
@@ -42,14 +40,6 @@ class _FormSignUpState extends State<FormSignUp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextFormField(
-              labelText: "Full Name",
-              hintText: "Your full name",
-              controller: _nameController,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextFormField(
               labelText: "Email Address",
               hintText: "Your email address",
               controller: _emailController,
@@ -62,14 +52,6 @@ class _FormSignUpState extends State<FormSignUp> {
               hintText: "Your password",
               isPassword: true,
               controller: _passwordController,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextFormField(
-              labelText: "Hobby",
-              hintText: "Your hobby",
-              controller: _hobbyController,
             ),
             const SizedBox(
               height: 30,
@@ -87,7 +69,9 @@ class _FormSignUpState extends State<FormSignUp> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Bonus(),
+                      builder: (context) => const MainPage(
+                        index: 0,
+                      ),
                     ),
                     (route) => false,
                   );
@@ -96,14 +80,12 @@ class _FormSignUpState extends State<FormSignUp> {
               builder: (context, state) {
                 return CustomButton(
                   isLoading: (state is AuthLoading) ? true : false,
-                  label: "Get Started",
+                  label: "Sign In",
                   onTap: () {
                     if (widget.formKey.currentState!.validate()) {
-                      context.read<AuthCubit>().signUp(
+                      context.read<AuthCubit>().signIn(
                             email: _emailController.text,
                             password: _passwordController.text,
-                            name: _nameController.text,
-                            hobby: _hobbyController.text,
                           );
                     }
                   },

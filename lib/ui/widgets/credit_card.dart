@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class CreditCard extends StatelessWidget {
   final String name;
-  final double credit;
+  final int credit;
   const CreditCard({
     Key? key,
     required this.name,

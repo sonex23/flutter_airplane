@@ -1,18 +1,18 @@
-import 'package:airplane/ui/pages/sign_in.dart';
+import 'package:airplane/ui/pages/sign_up.dart';
+import 'package:airplane/ui/widgets/form_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/widgets/custom_title.dart';
-import 'package:airplane/ui/widgets/form_sign_up.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
+  _SignInState createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
-  final GlobalKey<FormState> _formSignUpKey = GlobalKey<FormState>();
+class _SignInState extends State<SignIn> {
+  final GlobalKey<FormState> _formSignInKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +26,13 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomTitle(
-                  label: "Join us and get\nyour next journey",
+                  label: "Sign in with Your\nexisting Account",
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                FormSignUp(
-                  formKey: _formSignUpKey,
+                FormSignIn(
+                  formKey: _formSignInKey,
                 ),
                 const SizedBox(
                   height: 30,
@@ -40,15 +40,16 @@ class _SignUpState extends State<SignUp> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignIn(),
+                          builder: (context) => const SignUp(),
                         ),
+                        (route) => false,
                       );
                     },
                     child: Text(
-                      "Already have an account ? Sign in",
+                      "Don't have an account yet ? Sign Up",
                       style: greyTextStyle.copyWith(
                         fontWeight: light,
                         fontSize: 16,

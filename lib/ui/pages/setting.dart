@@ -1,5 +1,5 @@
 import 'package:airplane/cubit/auth_cubit.dart';
-import 'package:airplane/ui/pages/sign_up.dart';
+import 'package:airplane/ui/pages/sign_in.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +23,7 @@ class Setting extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SignUp(),
+                  builder: (context) => const SignIn(),
                 ),
                 (route) => false,
               );

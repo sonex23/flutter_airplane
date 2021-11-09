@@ -1,4 +1,5 @@
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/destination_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/widgets/card_destiny.dart';
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> {
               children: [
                 BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, state) {
+                    print(state);
                     return CustomTitle(
                       label: state is AuthSuccess
                           ? "Howdy, \n${state.user.name}"
@@ -65,40 +67,34 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(
               height: 323,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: const [
-                  CardDestiny(
-                    name: "White House",
-                    address: "Spain",
-                    imgSrc: "assets/image_destiny_1.png",
-                    rating: 4.8,
-                  ),
-                  CardDestiny(
-                    name: "Lake Ciliwung",
-                    address: "Tanggerang",
-                    imgSrc: "assets/image_destiny_2.png",
-                    rating: 4.7,
-                  ),
-                  CardDestiny(
-                    name: "Hill Heyo",
-                    address: "Monacco",
-                    imgSrc: "assets/image_destiny_9.png",
-                    rating: 4.9,
-                  ),
-                  CardDestiny(
-                    name: "Ancient Temple",
-                    address: "Japan",
-                    imgSrc: "assets/image_destiny_10.png",
-                    rating: 4.8,
-                  ),
-                  CardDestiny(
-                    name: "Tower of Flower",
-                    address: "Singapore",
-                    imgSrc: "assets/image_destiny_11.png",
-                    rating: 4.7,
-                  ),
-                ],
+              child: BlocBuilder<DestinationCubit, DestinationState>(
+                builder: (context, state) {
+                  print(state);
+                  if (state is DestinationLoading) {
+                    return const Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else if (state is DestinationSuccess) {
+                    return ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: state.destinations
+                          .map(
+                            (destination) => CardDestiny(
+                              name: destination.name,
+                              city: destination.city,
+                              imageUrl: destination.imageUrl,
+                              rating: destination.rating,
+                            ),
+                          )
+                          .toList(),
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
             ),
             const SizedBox(

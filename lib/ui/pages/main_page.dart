@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final int? index;
+  const MainPage({
+    Key? key,
+    this.index,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,9 @@ class MainPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            pages[context.watch<PageCubit>().state],
+            index != null
+                ? pages[index!.toInt()]
+                : pages[context.watch<PageCubit>().state],
             Positioned.fill(
               bottom: 10,
               child: Align(

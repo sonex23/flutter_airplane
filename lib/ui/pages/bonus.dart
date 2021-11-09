@@ -31,7 +31,7 @@ class _BonusState extends State<Bonus> {
             },
           ),
           const SizedBox(
-            height: 91,
+            height: 81,
           ),
           Text(
             "Big Bonus 🎉",
