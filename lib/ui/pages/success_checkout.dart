@@ -1,5 +1,5 @@
 import 'package:airplane/shared/theme.dart';
-import 'package:airplane/ui/pages/home.dart';
+import 'package:airplane/ui/pages/main_page.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +50,7 @@ class SuccessCheckout extends StatelessWidget {
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const Home()),
+                    MaterialPageRoute(builder: (context) => const MainPage()),
                     (route) => false,
                   );
                 },

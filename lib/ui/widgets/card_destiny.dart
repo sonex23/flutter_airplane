@@ -1,16 +1,13 @@
+import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/ui/pages/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
 
 class CardDestiny extends StatelessWidget {
-  final double rating;
-  final String imageUrl, name, city;
+  final DestinationModel destination;
   const CardDestiny({
     Key? key,
-    required this.name,
-    required this.city,
-    required this.imageUrl,
-    required this.rating,
+    required this.destination,
   }) : super(key: key);
 
   @override
@@ -18,7 +15,13 @@ class CardDestiny extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Detail()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => Detail(
+              destination: destination,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(
@@ -40,7 +43,7 @@ class CardDestiny extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     image: DecorationImage(
-                      image: NetworkImage(imageUrl),
+                      image: NetworkImage(destination.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -69,7 +72,7 @@ class CardDestiny extends StatelessWidget {
                           child: Image.asset("assets/icon_star.png"),
                         ),
                         Text(
-                          "$rating",
+                          "${destination.rating}",
                           style: blackTextStyle.copyWith(
                             fontSize: 14,
                             fontWeight: medium,
@@ -92,7 +95,7 @@ class CardDestiny extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    destination.name,
                     style: blackTextStyle.copyWith(
                       fontSize: 18,
                       fontWeight: medium,
@@ -102,7 +105,7 @@ class CardDestiny extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    city,
+                    destination.city,
                     style: greyTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: light,

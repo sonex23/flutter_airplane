@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Detail extends StatefulWidget {
-  const Detail({Key? key}) : super(key: key);
+  final DestinationModel destination;
+  const Detail({
+    Key? key,
+    required this.destination,
+  }) : super(key: key);
 
   @override
   _DetailState createState() => _DetailState();
@@ -23,9 +27,9 @@ class _DetailState extends State<Detail> {
             Container(
               width: double.infinity,
               height: 450,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/image_destiny_2.png'),
+                  image: NetworkImage(widget.destination.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -70,14 +74,14 @@ class _DetailState extends State<Detail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Lake Ciliwung",
+                                widget.destination.name,
                                 style: whiteTextStyle.copyWith(
                                   fontSize: 24,
                                   fontWeight: semiBold,
                                 ),
                               ),
                               Text(
-                                "Tanggerang",
+                                widget.destination.city,
                                 style: whiteTextStyle.copyWith(
                                   fontSize: 16,
                                   fontWeight: light,
@@ -96,7 +100,7 @@ class _DetailState extends State<Detail> {
                               child: Image.asset("assets/icon_star.png"),
                             ),
                             Text(
-                              "4.8",
+                              "${widget.destination.rating}",
                               style: whiteTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: medium,
@@ -335,7 +339,7 @@ class _DetailState extends State<Detail> {
                                 Text(
                                   NumberFormat.currency(
                                           symbol: "IDR ", decimalDigits: 0)
-                                      .format(2500000),
+                                      .format(widget.destination.price),
                                   style: blackTextStyle.copyWith(
                                     fontSize: 18,
                                     fontWeight: medium,
@@ -361,15 +365,8 @@ class _DetailState extends State<Detail> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ChooseSeat(
-                                      destination: DestinationModel(
-                                        id: '0',
-                                        name: "Lake Ciliwung",
-                                        city: "Tanggerang",
-                                        imageUrl: "assets/image_destiny_2.png",
-                                        rating: 4.8,
-                                        price: 2500000,
-                                      ),
+                                    builder: (context) => ChooseSeat(
+                                      destination: widget.destination,
                                     ),
                                   ),
                                 );

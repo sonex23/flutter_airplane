@@ -8,12 +8,20 @@ import 'package:airplane/ui/widgets/custom_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainPage extends StatelessWidget {
-  final int? index;
+class MainPage extends StatefulWidget {
   const MainPage({
     Key? key,
-    this.index,
   }) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +37,7 @@ class MainPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            index != null
-                ? pages[index!.toInt()]
-                : pages[context.watch<PageCubit>().state],
+            pages[context.watch<PageCubit>().state],
             Positioned.fill(
               bottom: 10,
               child: Align(

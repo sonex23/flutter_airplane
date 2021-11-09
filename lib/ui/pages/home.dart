@@ -16,6 +16,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    context.read<DestinationCubit>().getAllDestinations();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -84,10 +95,7 @@ class _HomeState extends State<Home> {
                       children: state.destinations
                           .map(
                             (destination) => CardDestiny(
-                              name: destination.name,
-                              city: destination.city,
-                              imageUrl: destination.imageUrl,
-                              rating: destination.rating,
+                              destination: destination,
                             ),
                           )
                           .toList(),

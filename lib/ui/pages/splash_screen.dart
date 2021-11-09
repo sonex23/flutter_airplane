@@ -41,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
             (route) => false,
           );
         }
-        context.read<DestinationCubit>().getAllDestinations();
       },
     );
   }

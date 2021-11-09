@@ -17,8 +17,8 @@ class CardDestinyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Detail()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => Detail(destinyId: id,)));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),

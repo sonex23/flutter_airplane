@@ -1,7 +1,7 @@
 import 'package:airplane/cubit/auth_cubit.dart';
+import 'package:airplane/cubit/page_cubit.dart';
 import 'package:airplane/ui/pages/main_page.dart';
 import 'package:flutter/material.dart';
-import 'package:airplane/ui/pages/bonus.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:airplane/ui/widgets/custom_textformfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,12 +66,11 @@ class _FormSignInState extends State<FormSignIn> {
                     ),
                   );
                 } else if (state is AuthSuccess) {
+                  context.read<PageCubit>().selectPage(0);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MainPage(
-                        index: 0,
-                      ),
+                      builder: (context) => const MainPage(),
                     ),
                     (route) => false,
                   );
