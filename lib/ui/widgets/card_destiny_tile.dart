@@ -1,4 +1,3 @@
-import 'package:airplane/ui/pages/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
 

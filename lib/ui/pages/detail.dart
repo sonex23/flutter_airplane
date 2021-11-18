@@ -338,8 +338,10 @@ class _DetailState extends State<Detail> {
                               children: [
                                 Text(
                                   NumberFormat.currency(
-                                          symbol: "IDR ", decimalDigits: 0)
-                                      .format(widget.destination.price),
+                                    symbol: "IDR ",
+                                    decimalDigits: 0,
+                                    locale: "id",
+                                  ).format(widget.destination.price),
                                   style: blackTextStyle.copyWith(
                                     fontSize: 18,
                                     fontWeight: medium,

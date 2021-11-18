@@ -14,7 +14,7 @@ class UserService {
         'balance': user.balance,
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -30,7 +30,7 @@ class UserService {
         balance: snapshot['balance'],
       );
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

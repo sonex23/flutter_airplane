@@ -1,4 +1,6 @@
 import 'package:airplane/cubit/seat_cubit.dart';
+import 'package:airplane/cubit/transaction_cubit.dart';
+import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/success_checkout.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
@@ -7,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Checkout extends StatefulWidget {
-  const Checkout({Key? key}) : super(key: key);
+  final TransactionModel transaction;
+  const Checkout({Key? key, required this.transaction}) : super(key: key);
 
   @override
   _CheckoutState createState() => _CheckoutState();
@@ -115,9 +118,9 @@ class _CheckoutState extends State<Checkout> {
                                 height: 70,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(18),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/image_destiny_2.png'),
+                                  image: DecorationImage(
+                                    image: NetworkImage(widget
+                                        .transaction.destination.imageUrl),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -127,7 +130,7 @@ class _CheckoutState extends State<Checkout> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Lake Ciliwung",
+                                      widget.transaction.destination.name,
                                       style: blackTextStyle.copyWith(
                                         fontSize: 18,
                                         fontWeight: medium,
@@ -137,7 +140,7 @@ class _CheckoutState extends State<Checkout> {
                                       height: 5,
                                     ),
                                     Text(
-                                      "Tanggerang",
+                                      widget.transaction.destination.city,
                                       style: greyTextStyle.copyWith(
                                           fontSize: 14, fontWeight: medium),
                                     ),
@@ -154,7 +157,7 @@ class _CheckoutState extends State<Checkout> {
                                     child: Image.asset("assets/icon_star.png"),
                                   ),
                                   Text(
-                                    "4.8",
+                                    "${widget.transaction.destination.rating}",
                                     style: blackTextStyle.copyWith(
                                       fontSize: 14,
                                       fontWeight: medium,
@@ -180,7 +183,7 @@ class _CheckoutState extends State<Checkout> {
                           DetailItem(
                             title: "Traveler",
                             content: Text(
-                              "${seatState.length} person",
+                              "${widget.transaction.amountOfTraveler} person",
                               style: blackTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
@@ -191,7 +194,7 @@ class _CheckoutState extends State<Checkout> {
                           DetailItem(
                             title: "Seat",
                             content: Text(
-                              seatState.join(", "),
+                              widget.transaction.selectedSeats,
                               style: blackTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
@@ -202,29 +205,33 @@ class _CheckoutState extends State<Checkout> {
                           DetailItem(
                             title: "Insurance",
                             content: Text(
-                              "YES",
+                              widget.transaction.insurance ? "YES" : "NO",
                               style: greenTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: semiBold,
-                              ),
+                                  fontSize: 14,
+                                  fontWeight: semiBold,
+                                  color: widget.transaction.insurance
+                                      ? kGreenColor
+                                      : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
                           DetailItem(
                             title: "Refundable",
                             content: Text(
-                              "NO",
+                              widget.transaction.refundable ? "YES" : "NO",
                               style: redTextStyle.copyWith(
-                                fontSize: 14,
-                                fontWeight: semiBold,
-                              ),
+                                  fontSize: 14,
+                                  fontWeight: semiBold,
+                                  color: widget.transaction.refundable
+                                      ? kGreenColor
+                                      : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
                           DetailItem(
                             title: "VAT",
                             content: Text(
-                              "45%",
+                              "${(widget.transaction.vat * 100).toStringAsFixed(0)}%",
                               style: blackTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
@@ -239,7 +246,7 @@ class _CheckoutState extends State<Checkout> {
                                 locale: 'id',
                                 symbol: "IDR ",
                                 decimalDigits: 0,
-                              ).format(8500000),
+                              ).format(widget.transaction.price),
                               style: blackTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
@@ -255,7 +262,7 @@ class _CheckoutState extends State<Checkout> {
                                 locale: 'id',
                                 symbol: "IDR ",
                                 decimalDigits: 0,
-                              ).format(8500000 * seatState.length),
+                              ).format(widget.transaction.grandTotal),
                               style: purpleTextStyle.copyWith(
                                 fontSize: 14,
                                 fontWeight: semiBold,
@@ -361,19 +368,40 @@ class _CheckoutState extends State<Checkout> {
                     ],
                   ),
                 ),
-                CustomButton(
-                  label: "Pay Now",
-                  onTap: () {
-                    context.read<SeatCubit>().setDefault();
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SuccessCheckout(),
-                      ),
+                BlocConsumer<TransactionCubit, TransactionState>(
+                  listener: (context, state) {
+                    if (state is TransactionSuccess) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SuccessCheckout(),
+                        ),
+                      );
+                    } else if (state is TransactionFailed) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            state.error,
+                            style: whiteTextStyle,
+                          ),
+                          backgroundColor: kRedColor,
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomButton(
+                      isLoading: state is TransactionLoading ? true : false,
+                      label: "Pay Now",
+                      onTap: () {
+                        context.read<SeatCubit>().setDefault();
+                        context
+                            .read<TransactionCubit>()
+                            .createTransaction(widget.transaction);
+                      },
+                      width: double.infinity,
                     );
                   },
-                  width: double.infinity,
                 ),
                 const SizedBox(
                   height: 30,

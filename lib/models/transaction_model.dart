@@ -1,8 +1,10 @@
 import 'package:airplane/models/destination_model.dart';
+import 'package:airplane/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 class TransactionModel extends Equatable {
   final String id;
+  final UserModel user;
   final DestinationModel destination;
   final int amountOfTraveler;
   final String selectedSeats;
@@ -14,6 +16,7 @@ class TransactionModel extends Equatable {
 
   const TransactionModel({
     required this.destination,
+    required this.user,
     this.id = '',
     this.amountOfTraveler = 0,
     this.selectedSeats = '',
@@ -28,6 +31,7 @@ class TransactionModel extends Equatable {
       TransactionModel(
         destination: DestinationModel.fromJson(
             json['destination']['id'], json['destination']),
+        user: UserModel.fromJson(json['user']['id'], json['user']),
         id: id,
         amountOfTraveler: json['amountOfTraveler'],
         selectedSeats: json['selectedSeats'],
@@ -49,4 +53,16 @@ class TransactionModel extends Equatable {
         price,
         grandTotal,
       ];
+
+  Map<String, dynamic> toJson(TransactionModel transaction) => {
+        'user': transaction.user.toJson(),
+        'destination': transaction.destination.toJson(),
+        'amountOfTraveler': transaction.amountOfTraveler,
+        'selectedSeats': transaction.selectedSeats,
+        'insurance': transaction.insurance,
+        'refundable': transaction.refundable,
+        'vat': transaction.vat,
+        'price': transaction.price,
+        'grandTotal': transaction.grandTotal,
+      };
 }

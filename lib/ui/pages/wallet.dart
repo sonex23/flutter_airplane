@@ -5,8 +5,8 @@ class Wallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
+    return const SizedBox(
+      child: Center(
         child: Text("Wallet Page"),
       ),
     );

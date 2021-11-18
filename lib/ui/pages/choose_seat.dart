@@ -1,5 +1,7 @@
+import 'package:airplane/cubit/auth_cubit.dart';
 import 'package:airplane/cubit/seat_cubit.dart';
 import 'package:airplane/models/destination_model.dart';
+import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/checkout.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
@@ -433,10 +435,26 @@ class ChooseSeat extends StatelessWidget {
                   CustomButton(
                     label: "Continue to Checkout",
                     onTap: () {
+                      int price = destination.price *
+                          context.read<SeatCubit>().state.length;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Checkout(),
+                          builder: (context) => Checkout(
+                            transaction: TransactionModel(
+                              user: context.read<AuthCubit>().state.user,
+                              destination: destination,
+                              amountOfTraveler:
+                                  context.watch<SeatCubit>().state.length,
+                              selectedSeats:
+                                  context.watch<SeatCubit>().state.join(', '),
+                              insurance: true,
+                              refundable: false,
+                              vat: 0.45,
+                              price: price,
+                              grandTotal: price + (price * 0.45).toInt(),
+                            ),
+                          ),
                         ),
                       );
                     },

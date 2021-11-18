@@ -7,14 +7,14 @@ import 'package:equatable/equatable.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit() : super(const AuthInitial());
 
   void signIn({
     required String email,
     required String password,
   }) async {
     try {
-      emit(AuthLoading());
+      emit(const AuthLoading());
       UserModel user = await AuthService().signIn(
         email: email,
         password: password,
@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
       required String name,
       String hobby = ''}) async {
     try {
-      emit(AuthLoading());
+      emit(const AuthLoading());
 
       UserModel user = await AuthService().signUp(
         email: email,
@@ -48,9 +48,9 @@ class AuthCubit extends Cubit<AuthState> {
 
   void signOut() async {
     try {
-      emit(AuthLoading());
+      emit(const AuthLoading());
       await AuthService().signOut();
-      emit(AuthInitial());
+      emit(const AuthInitial());
     } catch (e) {
       emit(AuthFailed(e.toString()));
     }
@@ -58,7 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void getCurrentUser(String id) async {
     try {
-      emit(AuthLoading());
+      emit(const AuthLoading());
       UserModel user = await UserService().getUserByID(id);
       emit(AuthSuccess(user));
     } catch (e) {

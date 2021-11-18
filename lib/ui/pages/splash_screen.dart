@@ -1,5 +1,4 @@
 import 'package:airplane/cubit/auth_cubit.dart';
-import 'package:airplane/cubit/destination_cubit.dart';
 import 'package:airplane/ui/pages/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";

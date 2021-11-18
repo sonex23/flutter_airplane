@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
               children: [
                 BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, state) {
-                    print(state);
                     return CustomTitle(
                       label: state is AuthSuccess
                           ? "Howdy, \n${state.user.name}"
@@ -80,7 +79,6 @@ class _HomeState extends State<Home> {
               height: 323,
               child: BlocBuilder<DestinationCubit, DestinationState>(
                 builder: (context, state) {
-                  print(state);
                   if (state is DestinationLoading) {
                     return const Center(
                       child: SizedBox(
@@ -154,7 +152,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(
               height: 70,
-            ),
+            )
           ],
         ),
       ),

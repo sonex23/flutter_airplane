@@ -9,7 +9,7 @@ class Setting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Center(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
