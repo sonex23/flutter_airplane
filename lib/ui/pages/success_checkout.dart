@@ -1,5 +1,4 @@
 import 'package:airplane/shared/theme.dart';
-import 'package:airplane/ui/pages/main_page.dart';
 import 'package:airplane/ui/pages/transaction.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
