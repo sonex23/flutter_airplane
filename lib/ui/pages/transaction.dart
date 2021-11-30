@@ -52,19 +52,22 @@ class _TransactionState extends State<Transaction> {
                   ),
                 );
               } else if (state is TransactionSuccess) {
-                return ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: state.transactions
+                return SingleChildScrollView(
+                  child: Column(
+                     children: state.transactions
                       .map(
-                        (transaction) => CustomTransactionCard(transaction),
-                      )
+                      (transaction) => CustomTransactionCard(transaction),
+                  )
                       .toList(),
+                  ),
                 );
               } else {
                 return const SizedBox();
               }
             }),
+            const SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),
