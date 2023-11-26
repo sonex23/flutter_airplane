@@ -43,9 +43,7 @@ class _HomeState extends State<Home> {
                 BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, state) {
                     return CustomTitle(
-                      label: state is AuthSuccess
-                          ? "Howdy, \n${state.user.name}"
-                          : "",
+                      label: state is AuthSuccess ? "Howdy, \n${state.user.name}" : "",
                     );
                   },
                 ),
@@ -116,8 +114,8 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 16,
             ),
-            Column(
-              children: const [
+            const Column(
+              children: [
                 CardDestinyTile(
                   name: "Sydney Opera",
                   address: "Australy",

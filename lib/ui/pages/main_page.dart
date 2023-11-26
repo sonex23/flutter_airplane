@@ -49,9 +49,9 @@ class _MainPageState extends State<MainPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
+                    children: [
                       CustomBottomNavigation(
                         index: 0,
                         imgUrl: "assets/icon_browse.png",
