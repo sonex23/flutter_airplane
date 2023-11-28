@@ -3,6 +3,7 @@ import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/transaction_history_detail.dart';
 import 'package:airplane/ui/widgets/custom_title.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +42,7 @@ class _TransactionState extends State<Transaction> {
             const SizedBox(
               height: 30,
             ),
-            BlocBuilder<TransactionCubit, TransactionState>(
-                builder: (context, state) {
+            BlocBuilder<TransactionCubit, TransactionState>(builder: (context, state) {
               if (state is TransactionLoading) {
                 return const Center(
                   child: SizedBox(
@@ -54,11 +54,11 @@ class _TransactionState extends State<Transaction> {
               } else if (state is TransactionSuccess) {
                 return SingleChildScrollView(
                   child: Column(
-                     children: state.transactions
-                      .map(
-                      (transaction) => CustomTransactionCard(transaction),
-                  )
-                      .toList(),
+                    children: state.transactions
+                        .map(
+                          (transaction) => CustomTransactionCard(transaction),
+                        )
+                        .toList(),
                   ),
                 );
               } else {
@@ -118,7 +118,7 @@ class _CustomTransactionCardState extends State<CustomTransactionCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 image: DecorationImage(
-                  image: NetworkImage(widget.transaction.destination.imageUrl),
+                  image: CachedNetworkImageProvider(widget.transaction.destination.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),

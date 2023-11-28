@@ -3,14 +3,14 @@ import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/checkout.dart';
 import 'package:airplane/ui/widgets/custom_title.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TransactionHistoryDetail extends StatelessWidget {
   final TransactionModel transaction;
-  const TransactionHistoryDetail(this.transaction, {Key? key})
-      : super(key: key);
+  const TransactionHistoryDetail(this.transaction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,7 @@ class TransactionHistoryDetail extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(18),
                                   image: DecorationImage(
-                                    image: NetworkImage(
-                                        transaction.destination.imageUrl),
+                                    image: CachedNetworkImageProvider(transaction.destination.imageUrl),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -90,8 +89,7 @@ class TransactionHistoryDetail extends StatelessWidget {
                                     ),
                                     Text(
                                       transaction.destination.city,
-                                      style: greyTextStyle.copyWith(
-                                          fontSize: 14, fontWeight: medium),
+                                      style: greyTextStyle.copyWith(fontSize: 14, fontWeight: medium),
                                     ),
                                   ],
                                 ),
@@ -155,12 +153,8 @@ class TransactionHistoryDetail extends StatelessWidget {
                             title: "Insurance",
                             content: Text(
                               transaction.insurance ? "YES" : "NO",
-                              style: greenTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: semiBold,
-                                  color: transaction.insurance
-                                      ? kGreenColor
-                                      : kRedColor),
+                              style:
+                                  greenTextStyle.copyWith(fontSize: 14, fontWeight: semiBold, color: transaction.insurance ? kGreenColor : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -168,12 +162,8 @@ class TransactionHistoryDetail extends StatelessWidget {
                             title: "Refundable",
                             content: Text(
                               transaction.refundable ? "YES" : "NO",
-                              style: redTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: semiBold,
-                                  color: transaction.refundable
-                                      ? kGreenColor
-                                      : kRedColor),
+                              style:
+                                  redTextStyle.copyWith(fontSize: 14, fontWeight: semiBold, color: transaction.refundable ? kGreenColor : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -253,17 +243,14 @@ class TransactionHistoryDetail extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 16),
                             width: 100,
                             height: 70,
-                            decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(18),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kShadowBonusCard.withOpacity(0.2),
-                                    blurRadius: 20,
-                                    spreadRadius: 0,
-                                    offset: const Offset(0, 10),
-                                  )
-                                ]),
+                            decoration: BoxDecoration(color: kPrimaryColor, borderRadius: BorderRadius.circular(18), boxShadow: [
+                              BoxShadow(
+                                color: kShadowBonusCard.withOpacity(0.2),
+                                blurRadius: 20,
+                                spreadRadius: 0,
+                                offset: const Offset(0, 10),
+                              )
+                            ]),
                             child: Center(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

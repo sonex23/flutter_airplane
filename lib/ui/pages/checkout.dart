@@ -4,6 +4,7 @@ import 'package:airplane/models/transaction_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/success_checkout.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -119,8 +120,9 @@ class _CheckoutState extends State<Checkout> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(18),
                                   image: DecorationImage(
-                                    image: NetworkImage(widget
-                                        .transaction.destination.imageUrl),
+                                    image: CachedNetworkImageProvider(
+                                      widget.transaction.destination.imageUrl,
+                                    ),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -141,8 +143,7 @@ class _CheckoutState extends State<Checkout> {
                                     ),
                                     Text(
                                       widget.transaction.destination.city,
-                                      style: greyTextStyle.copyWith(
-                                          fontSize: 14, fontWeight: medium),
+                                      style: greyTextStyle.copyWith(fontSize: 14, fontWeight: medium),
                                     ),
                                   ],
                                 ),
@@ -207,11 +208,7 @@ class _CheckoutState extends State<Checkout> {
                             content: Text(
                               widget.transaction.insurance ? "YES" : "NO",
                               style: greenTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: semiBold,
-                                  color: widget.transaction.insurance
-                                      ? kGreenColor
-                                      : kRedColor),
+                                  fontSize: 14, fontWeight: semiBold, color: widget.transaction.insurance ? kGreenColor : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -220,11 +217,7 @@ class _CheckoutState extends State<Checkout> {
                             content: Text(
                               widget.transaction.refundable ? "YES" : "NO",
                               style: redTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: semiBold,
-                                  color: widget.transaction.refundable
-                                      ? kGreenColor
-                                      : kRedColor),
+                                  fontSize: 14, fontWeight: semiBold, color: widget.transaction.refundable ? kGreenColor : kRedColor),
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -304,17 +297,14 @@ class _CheckoutState extends State<Checkout> {
                             margin: const EdgeInsets.only(right: 16),
                             width: 100,
                             height: 70,
-                            decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(18),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kShadowBonusCard.withOpacity(0.2),
-                                    blurRadius: 20,
-                                    spreadRadius: 0,
-                                    offset: const Offset(0, 10),
-                                  )
-                                ]),
+                            decoration: BoxDecoration(color: kPrimaryColor, borderRadius: BorderRadius.circular(18), boxShadow: [
+                              BoxShadow(
+                                color: kShadowBonusCard.withOpacity(0.2),
+                                blurRadius: 20,
+                                spreadRadius: 0,
+                                offset: const Offset(0, 10),
+                              )
+                            ]),
                             child: Center(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -395,9 +385,7 @@ class _CheckoutState extends State<Checkout> {
                       label: "Pay Now",
                       onTap: () {
                         context.read<SeatCubit>().setDefault();
-                        context
-                            .read<TransactionCubit>()
-                            .createTransaction(widget.transaction);
+                        context.read<TransactionCubit>().createTransaction(widget.transaction);
                       },
                       width: double.infinity,
                     );
@@ -406,16 +394,6 @@ class _CheckoutState extends State<Checkout> {
                 const SizedBox(
                   height: 30,
                 ),
-                Center(
-                  child: Text(
-                    "Terms and Conditions",
-                    style: greyTextStyle.copyWith(
-                      fontWeight: light,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                )
               ],
             ),
           ),

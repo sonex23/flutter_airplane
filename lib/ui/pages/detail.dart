@@ -2,6 +2,7 @@ import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/pages/choose_seat.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,7 +30,7 @@ class _DetailState extends State<Detail> {
               height: 450,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.destination.imageUrl),
+                  image: CachedNetworkImageProvider(widget.destination.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -165,8 +166,7 @@ class _DetailState extends State<Detail> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/image_destiny_6.png'),
+                                      image: AssetImage('assets/image_destiny_6.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -178,8 +178,7 @@ class _DetailState extends State<Detail> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/image_destiny_7.png'),
+                                      image: AssetImage('assets/image_destiny_7.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -191,8 +190,7 @@ class _DetailState extends State<Detail> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/image_destiny_8.png'),
+                                      image: AssetImage('assets/image_destiny_8.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

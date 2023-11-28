@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatefulWidget {
+  final int? page;
   const MainPage({
+    this.page,
     Key? key,
   }) : super(key: key);
 

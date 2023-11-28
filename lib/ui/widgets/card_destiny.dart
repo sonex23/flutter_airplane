@@ -1,5 +1,6 @@
 import 'package:airplane/models/destination_model.dart';
 import 'package:airplane/ui/pages/detail.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:airplane/shared/theme.dart';
 
@@ -43,7 +44,7 @@ class CardDestiny extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     image: DecorationImage(
-                      image: NetworkImage(destination.imageUrl),
+                      image: CachedNetworkImageProvider(destination.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),

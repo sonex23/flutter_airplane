@@ -48,12 +48,14 @@ class SuccessCheckout extends StatelessWidget {
                 height: 50,
               ),
               CustomButton(
-                label: "My Bookings",
+                label: "Back to Home",
                 onTap: () {
-                  context.read<PageCubit>().selectPage(1);
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const MainPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const MainPage(
+                              page: 1,
+                            )),
                     (route) => false,
                   );
                 },
